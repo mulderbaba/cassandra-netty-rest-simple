@@ -2,6 +2,7 @@ package tr.com.t2.labs.cassandra;
 
 import com.datastax.driver.core.Cluster;
 import info.archinnov.achilles.configuration.ConfigurationParameters;
+import info.archinnov.achilles.persistence.AsyncManager;
 import info.archinnov.achilles.persistence.PersistenceManager;
 import info.archinnov.achilles.persistence.PersistenceManagerFactory;
 import info.archinnov.achilles.type.ConsistencyLevel;
@@ -78,6 +79,11 @@ public class PersistenceManagerJavaConfig {
     @Bean
     public PersistenceManager getPersistenceManager() {
         return pmf.createPersistenceManager();
+    }
+
+    @Bean
+    public AsyncManager getAsyncManager() {
+        return pmf.createAsyncManager();
     }
 
     @Bean(destroyMethod = "close")

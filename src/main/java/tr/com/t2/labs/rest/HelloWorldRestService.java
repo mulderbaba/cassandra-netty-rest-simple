@@ -1,6 +1,7 @@
 package tr.com.t2.labs.rest;
 
 import com.datastax.driver.core.utils.UUIDs;
+import info.archinnov.achilles.persistence.AsyncManager;
 import info.archinnov.achilles.persistence.PersistenceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,15 @@ public class HelloWorldRestService {
     @Autowired
     private PersistenceManager persistenceManager;
 
+    @Autowired
+    private AsyncManager asyncManager;
+
     @GET
     @Produces("application/json")
     public Response sayHello() {
         UUID id = UUIDs.timeBased();
         Person person = new Person(id, "John", "Doe");
-        persistenceManager.insert(person);
+        asyncManager.insert(person);
         return Response.status(200).entity(id.toString()).build();
     }
 }
